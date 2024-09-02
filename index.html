@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>外部HTML読み込み</title>
+    <style>
+        .container {
+            display: flex;
+        }
+
+        .button-panel {
+            display: flex;
+            flex-direction: column;
+            margin-right: 20px;
+        }
+
+        .button-panel button {
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .content-panel {
+            border: 1px solid #ccc;
+            padding: 20px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="button-panel">
+        <button onclick="loadContent('contentA.html')">A</button>
+        <button onclick="loadContent('contentB.html')">B</button>
+        <button onclick="loadContent('contentC.html')">C</button>
+        <button onclick="loadContent('contentD.html')">D</button>
+    </div>
+    <div class="content-panel" id="content-panel">
+        <!-- ここに外部HTMLが読み込まれる -->
+        <p>ここにコンテンツが表示されます。</p>
+    </div>
+</div>
+
+<script>
+    function loadContent(filename) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', filename, true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                document.getElementById('content-panel').innerHTML = xhr.responseText;
+            }
+        };
+        xhr.send();
+    }
+</script>
+
+</body>
+</html>
